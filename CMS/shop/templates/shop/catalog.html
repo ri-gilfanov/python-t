@@ -1,0 +1,48 @@
+{% extends 'core/base__with_sidebar.html' %}
+{% load static mptt_tags %}
+
+
+{% block page_title %}Каталог товаров{% endblock %}
+
+    
+{% block additional_static %}
+    <meta name="description" content="Каталог товаров компании Питон" />
+    <link rel="stylesheet" type="text/css" href="{% static 'shop__styles.css' %}"/>
+{% endblock %}
+
+
+{% block bread_crumbs %}
+    <a href="{% url 'main_page' %}">Главная</a>
+    <span> / </span>
+{% endblock %}
+
+
+{% block page_header %}
+    <span>Каталог</span>
+{% endblock %}
+
+
+
+{% block core__sidebar_wrapper %}
+    <section class="shop__sidebar_block white_box">
+        <h1 class="category_sidebar__h1">Подкатегории</h1>
+        <ul class="ul__column">
+            {% for category in category_menu %}
+                <li class="category_sidebar__li">
+                    <a class="btn btn__light" href="{% url 'category' category.pk %}">{{ category.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}
+
+
+{% block core__main %}
+    <div class="tyle__wrapper">
+        {% for subcategory in category_tree %}
+            {% if subcategory.is_root_node %}
+                {% include 'shop/category_tyle.html' %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

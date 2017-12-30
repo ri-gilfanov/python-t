@@ -1,0 +1,24 @@
+{% load core mptt_tags shop static %}
+
+<div class="shop__tyle__block white_box" style="display: flex; flex-direction: column;">
+    <a class="category_tyle__category_a" href="{% url 'category' subcategory.pk %}" style="flex: 0 0 auto;">
+        {% if subcategory.cover %}
+            <img src="{{ subcategory.cover.url }}" alt="{{ subcategory.name }}">
+        {% else %}
+            <img src="{% static 'shop__product_default.png' %}" alt="{{ subcategory.name }}">
+        {% endif %}
+        <h1 class="category_tyle__category_h1">{{ subcategory.name }}</h1>
+    </a>
+    <ul class="ul__column" style="flex: 1 0 auto;">
+        {% for subcategory in subcategory.get_children|slice:":5" %}
+            <li><a class="category_tyle__subcategory_a btn btn__light" href="{% url 'category' subcategory.pk %}">{{ subcategory.name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% if subcategory.get_children %}
+    <div style="flex: 0 0 auto; margin-bottom: 5px; text-align: center;">
+        <a class="btn btn__std btn__dark" href="{% url 'category' subcategory.pk %}">
+            Все подкатегории
+        </a>
+    </div>
+    {% endif %}
+</div>

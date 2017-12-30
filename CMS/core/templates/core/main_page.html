@@ -1,0 +1,327 @@
+{% extends 'core/base.html' %}
+{% load admin_urls static %}
+{% block page_title %}Главная страница{% endblock %}
+
+{% block additional_static %}
+    <meta name="description" content="Интернет-магазин компании «Питон», ведущего поставщика инженерных систем в городе Тюмени." />
+{% endblock %}
+
+{% block content_block %}
+	<style>
+    .grid__row {
+        display: flex;
+        width: 100%;
+        max-width: 1240px;
+        padding: 0px 5px;
+    }
+
+    .grid__column {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        position: relative;
+        margin: 0 auto;
+        list-style: none;
+        display: flex;
+        text-align: center;
+    }
+
+    .grid__column figure {
+        position: relative;
+        float: left;
+        overflow: hidden;
+        margin: 0px;
+        flex: 1 1 auto;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        margin: 0px 5px 10px 5px;
+    }
+
+    .grid__column figure img {
+        position: relative;
+        display: block;
+        opacity: 1;
+    }
+
+    .grid__column figure figcaption {
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 1.25em;
+        backface-visibility: hidden;
+    }
+
+    .grid__column figure figcaption::before,
+    .grid__column figure figcaption::after {
+        pointer-events: none;
+    }
+
+    .grid__column figure figcaption,
+    .grid__column figure figcaption > a {
+        position: absolute;
+        top: 0;
+        left: 0;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+        figure.effect-julia img {
+            max-width: 100%;
+            height: auto;
+            transition: 1s;
+            backface-visibility: hidden;
+        }
+
+        figure.effect-julia:hover img {
+            filter: brightness(0.33);
+        }
+
+        figure.effect-julia figcaption {
+            text-align: left;
+        }
+        figure.effect-julia h2 {
+            position: relative;
+            padding: 5px 0 5px 0;
+            margin: 0px 10px;
+            text-shadow: 0px 0px 5px rgba(0,0,0,1);
+        }
+        figure.effect-julia h2 a {
+            color: #fff;
+        }
+        figure.effect-julia h2 a:hover {
+            color: rgb(28,148,216);
+        }
+        figure.effect-julia div {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+        }
+        figure.effect-julia .tyle__item {
+            margin: 0 10px 5px;
+            padding: 5px;
+            text-transform: none;
+            font-weight: 500;
+            font-size: 75%;
+            transition: none;
+            transform: translate3d(calc(-100% - 10px),0,0);
+            transition-property: transform, background-color;
+            transition-duration: 0.25s;
+            font-weight: bold;
+        }
+        figure.effect-julia a.tyle__item {
+            background-color: rgba(4,80,158,0.66);
+            color: #fff;
+        }
+        figure.effect-julia a.tyle__item:hover {
+            background-color: rgba(28,148,216,0.66);
+            color: #fff;
+        }
+        figure.effect-julia p.tyle__item {
+            background-color: rgba(28,148,216,0.66);
+        }
+
+        figure.effect-julia .tyle__item:first-child {transition-delay: 0.40s, 0s;}
+        figure.effect-julia .tyle__item:nth-of-type(2) {transition-delay: 0.35s, 0s;}
+        figure.effect-julia .tyle__item:nth-of-type(3) {transition-delay: 0.30s, 0s;}
+        figure.effect-julia .tyle__item:nth-of-type(4) {transition-delay: 0.25s, 0s;}
+        figure.effect-julia .tyle__item:nth-of-type(5) {transition-delay: 0.20s, 0s;}
+        figure.effect-julia .tyle__item:nth-of-type(6) {transition-delay: 0.15s, 0s;}
+        figure.effect-julia .tyle__item:nth-of-type(7) {transition-delay: 0.10s, 0s;}
+        figure.effect-julia .tyle__item:nth-of-type(8) {transition-delay: 0.05s, 0s;}
+
+        figure.effect-julia:hover .tyle__item:first-child {transition-delay: 0.05s, 0s;}
+        figure.effect-julia:hover .tyle__item:nth-of-type(2) {transition-delay: 0.1s, 0s;}
+        figure.effect-julia:hover .tyle__item:nth-of-type(3) {transition-delay: 0.15s, 0s;}
+        figure.effect-julia:hover .tyle__item:nth-of-type(4) {transition-delay: 0.2s, 0s;}
+        figure.effect-julia:hover .tyle__item:nth-of-type(5) {transition-delay: 0.25s, 0s;}
+        figure.effect-julia:hover .tyle__item:nth-of-type(6) {transition-delay: 0.3s, 0s;}
+        figure.effect-julia:hover .tyle__item:nth-of-type(7) {transition-delay: 0.35s, 0s;}
+        figure.effect-julia:hover .tyle__item:nth-of-type(8) {transition-delay: 0.40s, 0s;}
+
+        figure.effect-julia:hover .tyle__item {
+            opacity: 1;
+            margin: 0 10px 5px;
+            transform: translate3d(0,0,0);
+        }
+        .tyle__item__xxxx,
+        .tyle__item__xxxx:active,
+        .tyle__item__xxxx:link,
+        .tyle__item__xxxx:focus,
+        .tyle__item__xxxx:visited {
+            background: rgba(255,255,255,0.75) !important;
+            color: #000 !important;
+        }
+        .tyle__item__xxxx:hover {
+            background: rgba(28,148,216,0.75) !important;
+            color: #fff !important;
+        }
+	</style>
+    <div class="grid__row" style="margin-top: 10px;">
+        <div class="grid__column">
+            <figure class="effect-julia">
+                <img src="{% static 'main_page_tyles/heat_2-exp.png' %}" alt="img21"/>
+                <figcaption>
+                    <h2><a href="/category_1/">Тепло</a></h2>
+                    <div>
+                        <a class="tyle__item" href="/category_75/">Гидравлические разделители</a>
+                        <a class="tyle__item" href="/category_16/">Коллекторные шкафы</a>
+                        <a class="tyle__item" href="/category_4/">Котельное оборудование</a>
+                        <a class="tyle__item" href="/category_17/">Радиаторы</a>
+                        <a class="tyle__item" href="/category_73/">Теплоноситель</a>
+                        <a class="tyle__item" href="/category_74/">Теплообменники</a>
+                        <a class="tyle__item" href="/category_12/">Теплые полы</a>
+                        <a class="tyle__item tyle__item__xxxx" href="/category_1/">Все товары</a>
+                    </div>
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="grid__column">
+                <figure class="effect-julia">
+                        <img src="{% static 'main_page_tyles/heating_boilers.png' %}" alt="img21" style="min-width: 328px;"/>
+                        <figcaption>
+                            <h2><a href="/category_4/">Котельное оборудование</a></h2>
+                            <div>
+                                <a class="tyle__item" href="/category_5/">Пеллетные котлы</a>
+                                <a class="tyle__item" href="/category_6/">Твердотопливные котлы</a>
+                                <a class="tyle__item" href="/category_9/">Газовые котлы</a>
+                                <a class="tyle__item" href="/category_10/">Электрические котлы</a>
+                                <a class="tyle__item" href="/category_7/">Комплектующие</a>
+                                <a class="tyle__item" href="/category_11/">Дымоходы</a>
+                                <a class="tyle__item tyle__item__xxxx" href="/category_4/">Все товары</a>
+                            </div>
+                        </figcaption>
+                    </a>					
+                </figure>
+        </div>
+
+        <div class="grid__column">
+            <figure class="effect-julia">
+                <img src="{% static 'main_page_tyles/water_2-exp.png' %}" alt="img21"/>
+                <figcaption>
+                    <h2><a href="/category_2/">Вода</a></h2>
+                    <div>
+                        <a class="tyle__item" href="/category_3/">Водонагреватели</a>
+                        <a class="tyle__item" href="/category_148/">Водоочистка, фильтры</a>
+                        <a class="tyle__item" href="/category_156/">Воронки кровельные</a>
+                        <a class="tyle__item" href="/category_157/">Дренажные системы</a>
+                        <a class="tyle__item" href="/category_69/">Насосное оборудование</a>
+                        <a class="tyle__item" href="/category_241/">Подводка, шланги</a>
+                        <a class="tyle__item" href="/category_28/">Смесители</a>
+                        <a class="tyle__item tyle__item__xxxx" href="/category_2/">Все товары</a>
+                    </div>
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <div class="grid__row">
+        <div class="grid__column">
+            <figure class="effect-julia">
+                <img src="{% static 'main_page_tyles/sanitary_ware.jpg' %}" alt="img21"/>
+                <figcaption>
+                    <h2><a href="/category_343/">Санфаянс</a></h2>
+                    <div>
+                        <a class="tyle__item" href="/category_31/">Унитазы, писсуары, биде</a>
+                        <a class="tyle__item" href="/category_30/">Умывальники и пьедесталы</a>
+                        <a class="tyle__item tyle__item__xxxx" href="/category_343/">Все товары</a>
+                    </div>
+                </figcaption>
+            </figure>
+        </div>
+        <div class="grid__column">
+            <figure class="effect-julia">
+                <img src="{% static 'main_page_tyles/mixers.jpg' %}" alt="img21"/>
+                <figcaption>
+                    <h2><a href="/category_342/">Смесители</a></h2>
+                    <div>
+                        <a class="tyle__item" href="/category_28/">Смесители</a>
+                        <a class="tyle__item" href="/category_32/">Комплектующие для смесителей</a>
+                        <a class="tyle__item tyle__item__xxxx" href="/category_342/">Все товары</a>
+                    </div>
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <div class="grid__row">
+        <div class="grid__column">
+            <figure class="effect-julia">
+                <img src="{% static 'main_page_tyles/counters_2.png' %}" alt="img21"/>
+                <figcaption>
+                    <h2><a href="/category_70/">Контрольно-измерительные приборы</a></h2>
+                    <div>
+                        <a class="tyle__item" href="/category_339/">Водосчётчики</a>
+                        <a class="tyle__item" href="/category_338/">Счётчики тепла</a>
+                        <a class="tyle__item tyle__item__xxxx" href="/category_70/">Все товары</a>
+                    </div>
+                </figcaption>
+            </figure>
+        </div>
+        <div class="grid__column">
+            <figure class="effect-julia">
+                <img src="{% static 'main_page_tyles/radiators_2.png' %}" alt="img21"/>
+                <figcaption>
+                    <h2><a href="/category_17/">Радиаторы</a></h2>
+                    <div>
+                        <a class="tyle__item" href="/category_26/">Алюминиевые радиаторы</a>
+                        <a class="tyle__item" href="/category_22/">Биметаллические радиаторы</a>
+                        <a class="tyle__item" href="/category_18/">Стальные панельные радиаторы</a>
+                        <a class="tyle__item" href="/category_20/">Чугунные радиаторы</a>
+                        <a class="tyle__item tyle__item__xxxx" href="/category_17/">Все товары</a>
+                    </div>
+                </figcaption>
+            </figure>
+        </div>
+        <div class="grid__column">
+            <figure class="effect-julia">
+                <img src="{% static 'main_page_tyles/pump_equipment_2.png' %}" alt="img21"/>
+                <figcaption>
+                    <h2><a href="/category_69/">Насосное оборудование</a></h2>
+                    <div>
+                        <a class="tyle__item" href="/category_327/">Насосы вибрационные</a>
+                        <a class="tyle__item" href="/category_330/">Насосы дренажные</a>
+                        <a class="tyle__item" href="/category_334/">Насосы промышленные</a>
+                        <a class="tyle__item tyle__item__xxxx" href="/category_69/">Все товары</a>
+                    </div>
+                </figcaption>				
+            </figure>
+        </div>
+    </div>
+
+    <div class="grid__row">
+        <div class="grid__column">
+            <figure class="effect-julia">
+                <img src="{% static 'main_page_tyles/instruments.jpg' %}" alt="img21"/>
+                <figcaption>
+                    <h2><a href="/category_76/">Инструменты</a></h2>
+                    <div>
+                        <a class="tyle__item" href="/category_340/">Ручной инструмент</a>
+                        <a class="tyle__item" href="/category_341/">Электроинструменты</a>
+                        <a class="tyle__item" href="/category_77/">Пилы, диски и цепи для пил</a>
+                        <a class="tyle__item" href="/category_79/">Триммеры и комплектующие</a>
+                        <a class="tyle__item tyle__item__xxxx" href="/category_76/">Все товары</a>
+                    </div>
+                </figcaption>
+            </figure>
+        </div>
+        <div class="grid__column">
+            <figure class="effect-julia">
+                <img src="{% static 'main_page_tyles/pipes_and_fittings.jpg' %}" alt="img21"/>
+                <figcaption>
+                    <h2><a href="/category_15/">Трубы и фитинги</a></h2>
+                    <div>
+                        <a class="tyle__item" href="/category_262/">Трубопроводы</a>
+                        <a class="tyle__item" href="/category_72/">Трубопроводная арматура</a>
+                        <a class="tyle__item" href="/category_311/">Сталь, латунь, разное</a>
+                        <a class="tyle__item tyle__item__xxxx" href="/category_15/">Все товары</a>
+                    </div>
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+
+    </div>
+{% endblock %}
+
+{% block page_aside_right %}{% endblock %}

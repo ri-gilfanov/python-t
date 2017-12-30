@@ -1,0 +1,15 @@
+
+bin/
+include/
+lib/
+lib64
+share/
+*.geany
+*.log
+*.pyc
+*.sock
+pip-selfcheck.json
+pyvenv.cfg
+CMS/files/
+old/
+touchme

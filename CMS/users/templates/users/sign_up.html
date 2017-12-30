@@ -1,0 +1,63 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+
+{% block page_title %}Регистрация на сайте{% endblock %}
+
+    
+{% block additional_static %}
+    <script type="text/javascript" src="{% static '/js/jquery.maskedinput.min.js' %}"></script>
+{% endblock %}
+
+
+{% block content_block %}
+    <div class="page_header__wrapper">
+        <div class="page_header__wrapper">
+            <p class="bread_crumbs">
+                <a href="{% url 'main_page' %}">Главная</a><span> / </span>
+            </p>
+            <h1 class="page_header__h1">Регистрация на сайте</h1>
+        </div>
+    </div>
+
+    <div class="white_box" style="display: flex; flex: 0 0 auto; padding: 0px 10px; margin-bottom: 20px;">
+        {% if request.session.sign_up %}
+            <div>
+                <p>Код безопасности: {{ request.session.sign_up.security_code }}</p>
+                <p>Попыток осталось: {{ request.session.sign_up.retry_limit }}</p>
+            </div>
+        {% endif %}
+        {% for message in messages %}
+            <div {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message|safe }}</div>
+        {% endfor %}
+        <style>
+            .sign_form {
+                flex: 0 0 auto;
+                display: flex;
+                flex-wrap: wrap;
+                max-width: 300px;
+                align-items: center;
+                padding-bottom: 10px;
+            }
+            .sign_form > label {
+                margin-top: 10px;
+            }
+            .sign_form > input[type="checkbox"] {
+                flex: 1 0 auto;
+                margin-top: 10px;
+            },
+            .sign_form > input[type="submit"] {
+                margin-bottom: 10px;
+            }
+            .sign_form > input {
+                flex: 0 0 100%;
+                margin-top: 10px;
+            }
+        </style>
+        <form class="sign_form" action="{% url 'sign_up'%}" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <input class="btn btn__dark" type="submit" value="зарегистрироваться">
+        </form>
+    </div>
+{% endblock %}

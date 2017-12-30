@@ -1,0 +1,21 @@
+{% if paginator_page.has_other_pages %}
+        {% if paginator_page.number > paginator_start_link %}
+            <a class="btn btn__paginator btn__light"
+                href="{% url url_paginator_page obj.pk paginator_range|first %}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}">«</a>
+        {% endif %}
+        {% for page in paginator_range %}
+            {% if paginator_start < page and page < paginator_end %}
+                <a class="btn btn__paginator btn__light{% if page == paginator_page.number %} btn__light_sel{% endif %}"
+                {% if page != 1 %}
+                    href="{% url url_paginator_page obj.pk page %}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}"
+                {% else %}
+                    href="{% url url_paginator_page obj.pk %}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}"
+                {% endif %}
+                >{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if paginator_page.number < paginator_end_link %}
+            <a class="btn btn__paginator btn__light"
+                href="{% url url_paginator_page obj.pk paginator_range|last %}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}">»</a> 
+        {% endif %}
+{% endif %}

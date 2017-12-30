@@ -1,0 +1,107 @@
+{% extends 'core/base__with_sidebar.html' %}
+{% load static mptt_tags %}
+
+
+{% block page_title %}Юридические лица / Личный кабинет{% endblock %}
+
+    
+{% block additional_static %}
+{% endblock %}
+
+
+{% block bread_crumbs %}
+    <a href="{% url 'main_page' %}">Главная</a>
+    <span> / </span>
+    <a href="{% url 'profile' %}">Личный кабинет</a>
+    <span> / </span>
+{% endblock %}
+
+
+{% block page_header %}
+    <span>Юридические лица</span>
+{% endblock %}
+
+
+
+{% block core__sidebar_wrapper %}
+    {% include 'users/profile__menu.html' %}
+{% endblock %}
+
+
+{% block core__main %}
+    <div style="flex: 1 1 auto;">
+        <form action="{% url 'legal_entities' %}" method="POST">
+            {% csrf_token %}
+            <style>
+                .formset {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(49%, 1fr));
+                    grid-gap: 10px;
+                }
+                .formset__form {
+                    padding: 10px;
+                }
+                
+                .field__wrapper {
+                    display: flex;
+                    flex-wrap: wrap;
+                    padding: 10px;
+                    align-items: top;
+                }
+                
+                .field__block {
+                    flex: 10 0 calc(100% - 150px);
+                    display: flex;
+                    flex-direction: column;
+                }
+                
+                .field__wrapper > label {
+                    flex: 0 0 150px;
+                    min-width: 150px;
+                }
+                
+                .field__block > input {
+                    flex: 10 0 calc(100% - 150px);
+                }
+                
+                .field__block > span {
+                    flex: 1 1 100%;
+                    text-align: center;
+                }
+                .field__block > ul {
+                    flex: 10 1 100%;
+                    padding: 0px;
+                    margin: 0px;
+                }
+                .with_errors input {
+                    border-color: #f00;
+                }
+            </style>
+            {{ formset.management_form }}
+                <div class="formset">
+            {% for form in formset %}
+                    <div class="formset__form white_box">
+                    {% for field in form %}
+                        {{ form.title }}
+                        {% if field.is_hidden == False %}
+                            <div class="field__wrapper">
+                                <label>{{ field.label }}</label>
+                                <div class="field__block{% if field.errors %} with_errors{% endif %}">
+                                    <ul><small>{{ field.errors }}</small></ul>
+                                    {{ field }}
+                                    <span class="help_text"><small>{{ field.help_text }}</small></span>
+                                </div>
+                            </div>
+                        {% else%}
+                            {{ field }}
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+            {% endfor %}
+                </div>
+                <div style="padding-top: 10px; text-align: center;">
+                    <button type="submit" class="btn btn__dark form__sumbit_button">Сохранить изменения</button>
+                </div>
+        </form>
+    </div>
+{% endblock %}

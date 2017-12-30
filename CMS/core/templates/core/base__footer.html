@@ -1,0 +1,62 @@
+{% load static %}
+
+<footer class="site_footer">
+    <nav class="site_footer_nav">
+        {% comment %}
+        <section class="site_footer_nav__section">
+            <h1 class="site_footer_nav__h1">Компания</h1>
+            <ul class="ul__column">
+                <li class="site_footer_nav__li"><a class="btn btn__light" href="">Пункт меню 1</a></li>
+                <li class="site_footer_nav__li"><a class="btn btn__light" href="">Пункт меню 2</a></li>
+                <li class="site_footer_nav__li"><a class="btn btn__light" href="">Пункт меню 3</a></li>
+                <li class="site_footer_nav__li"><a class="btn btn__light" href="">Пункт меню 4</a></li>
+                <li class="site_footer_nav__li"><a class="btn btn__light" href="">Пункт меню 5</a></li>
+            </ul>
+        </section>
+        <section class="site_footer_nav__section">
+            <h1 class="site_footer_nav__h1">Покупателю</h1>
+            <ul class="ul__column">
+                <li class="site_footer_nav__li"><a class="btn btn__light" href="">Пункт меню 1</a></li>
+                <li class="site_footer_nav__li"><a class="btn btn__light" href="">Пункт меню 2</a></li>
+                <li class="site_footer_nav__li"><a class="btn btn__light" href="">Пункт меню 3</a></li>
+                <li class="site_footer_nav__li"><a class="btn btn__light" href="">Пункт меню 4</a></li>
+                <li class="site_footer_nav__li"><a class="btn btn__light" href="">Пункт меню 5</a></li>
+            </ul>
+        </section>
+        <section class="site_footer_nav__section">
+            <h1 class="site_footer_nav__h1">Информация</h1>
+            <ul class="ul__column">
+                <li class="site_footer_nav__li"><a class="btn btn__light" href="">Пункт меню 1</a></li>
+                <li class="site_footer_nav__li"><a class="btn btn__light" href="">Пункт меню 2</a></li>
+                <li class="site_footer_nav__li"><a class="btn btn__light" href="">Пункт меню 3</a></li>
+                <li class="site_footer_nav__li"><a class="btn btn__light" href="">Пункт меню 4</a></li>
+                <li class="site_footer_nav__li"><a class="btn btn__light" href="">Пункт меню 5</a></li>
+            </ul>
+        </section>
+        {% endcomment %}
+        <section class="site_footer_nav__section">
+            <h1 class="site_footer_nav__h1">Мы в социальных сетях</h1>
+            <ul class="site_footer_nav__ul__inline">
+                <li class="site_footer_nav__li site_footer_nav__li__social_icons">
+                    <a href="https://vk.com/ooopkfpiton">
+                        <img class="social_icon" style="width: 35px;" src="{% static 'social_icons/vk.png' %}">
+                    </a>
+                </li>
+                <li class="site_footer_nav__li site_footer_nav__li__social_icons">
+                    <a href="">
+                        <img class="social_icon" style="width: 35px;" src="{% static 'social_icons/instagram.png' %}">
+                    </a>
+                </li>
+                <li class="site_footer_nav__li site_footer_nav__li__social_icons">
+                    <a href="">
+                        <img class="social_icon" style="width: 35px;" src="{% static 'social_icons/youtube.png' %}">
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </nav>
+    <address class="site_footer_address">
+        <div>&copy; 2017, <a href="https://vk.com/ri_gilfanov" target="_blank">Гильфанов Руслан</a> (web-разработка)</div>
+        <div>&copy; 2017, ООО «Компания Питон»</div>
+    </address>
+</footer>

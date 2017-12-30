@@ -1,0 +1,64 @@
+{% load static %}
+{% load static mptt_tags %}
+
+
+<div class="site_nav_primary__wrapper">
+    <nav class="site_nav_primary__block">
+        <ul class="site_nav_primary__ul ul__column site_nav_primary__topmenu">
+            <li class="li_inline">
+                <a class="btn btn__dark" href="{% url 'catalog' %}" style="letter-spacing: 1px;">
+                    <span class="fa fa-bars"></span>
+                    <span>&nbsp;КАТАЛОГ ТОВАРОВ&nbsp;</span>
+                    <span class="fa fa-angle-down"></span>
+                </a>
+                <ul class="site_nav_primary__submenu ul__column white_box">
+                    {% recursetree category_tree %}
+                        <li>
+                            <a class="btn btn__light" href="{% url 'category' node.pk %}">
+                                <span style="flex: 1 1 auto;">{{ node.name }}</span>{% if not node.is_leaf_node %}
+                                <span>&nbsp;</span><span class="fa fa-angle-right"></span>{% endif %}
+                            </a>
+                            {% if not node.is_leaf_node %}
+                                <ul  class="site_nav_primary__submenu ul__column white_box">
+                                    {{ children }}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endrecursetree %}
+                </ul>
+            </li>
+            <li style="flex: 1 1 auto;">
+                <form action="{% url 'common_search' %}" class="search_form" method="GET">
+                    <input name="search" value="{{ search_query }}" class="search_input" placeholder="Поиск" type="text"></input>
+                    <button class="search_button" type="submit"><span class="fa fa-search"></span></button>
+                </form>
+            </li>
+            {% if request.user.buyer_type %}
+                <li class="li_inline">
+                    <a href="{% url 'profile' %}" class="btn btn__dark">
+                        <span class="fa fa-user">&nbsp;</span>
+                        <span>Личный кабинет</span>
+                    </a>
+                </li>
+                <li class="li_inline">
+                    <a href="" class="btn btn__dark">
+                        <span class="fa fa-vcard">&nbsp;</span>
+                        <span>На карте 0 баллов</span>
+                    </a>
+                </li>
+            {% endif %}
+            <li class="li_inline">
+                <a href="{% url 'cart' %}" class="btn btn__dark" style="min-width: 13em;">
+                    <span class="fa fa-shopping-cart">&nbsp;</span>
+                    {% with request.session.cart.keys|length as shoping_cart_len %}
+                        {% if not shoping_cart_len %}
+                            <span id="cart__score">Корзина пока пуста</span>
+                        {% else %}
+                            <span id="cart__score">Товаров в корзине {{ shoping_cart_len }}</span>
+                        {% endif %}
+                    {% endwith %}
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

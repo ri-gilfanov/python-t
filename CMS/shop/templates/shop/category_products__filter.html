@@ -1,0 +1,50 @@
+{% load static %}
+<style>
+    .product_filter ul {
+        padding: 0px;
+        list-style: none;
+    }
+    .product_filter > ul > li {
+        margin: 10px 0px;
+    }
+    .product_filter > ul > li > ul > li {
+        margin: 5px 0px;
+    }
+    .slider-container {
+        margin: calc(1em + 5px) auto;
+    }
+    .pointer-label {
+        font-size: 10px !important;
+    }
+    .scale ins {
+        font-size: 10px !important;
+    }
+</style>
+<section class="shop__sidebar_block white_box">
+    <h1 class="category_sidebar__h1">Фильтры</h1>
+    <form class="product_filter" action="{% url 'category' category.pk %}" method="get" style="padding: 10px; display: flex; flex-wrap: wrap; width: 100%;">
+        <ul class="ul__column">
+            {{ filter.form.as_ul }}
+            <li style="text-align: center;">
+                <button class="btn btn__std btn__dark fa" type="submit" value="найти">Выбрать</button>
+            </li>
+        </ul>
+    </form>
+    <script type="text/javascript" src="{% static 'shop__price_range.js' %}"></script>
+
+    <script type="text/javascript">
+        var product_filter_timer = null;
+
+        $( ".product_filter button" ).hide();
+
+        function reload_category_products(form) {
+            form.submit();
+        };
+
+        $( ".product_filter" ).change(function() {
+            clearTimeout(product_filter_timer);
+            product_filter_timer = setTimeout(reload_category_products, 500, this);
+        });
+    </script>
+
+</section>

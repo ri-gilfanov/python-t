@@ -1,0 +1,14 @@
+Django==1.10.7
+django-bulk-update
+django-ckeditor
+django-debug-toolbar  # only for development
+django-filter
+django-mail-templated
+django-mathfilters
+django-mptt
+django-nested-admin
+Pillow
+psycopg2
+pytz
+lxml
+xmltodict

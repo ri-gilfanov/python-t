@@ -1,0 +1,26 @@
+{% load core mptt_tags shop static %}
+
+<div class="shop__tyle__block white_box" style="display: flex; flex-direction: column;">
+    <a style="flex: 1 1 auto; padding: 10px; display: block;" href="{% url 'product' product.pk %}">
+        {% if product.photo_set.all %}
+            <center><img style="max-height: 240px;" src="{{ product.photo_set.all.0.file.url }}" alt="{{ product.name }}"></center>
+        {% else %}
+            <center><img style="max-height: 240px;" src="{% static 'shop__product_default.png' %}" alt="{{ product.name }}"></center>
+        {% endif %}
+        <h1 class="category_tyle__product_h1">{{ product.name }}</h1>
+    </a>
+    <div style="display: flex; align-items: center; flex: 0 0 auto;">
+        
+            {% russian_price product as x %}
+            {% if x %}
+                <div class="light_blue" style="flex: 1 0 50%; font-size: 1.5em; text-align: center; padding-bottom: 5px;">
+                    <b>{{ x }} </b><span class="fa fa-rub"></span>
+                </div>
+            {% else %}
+                <div class="light_blue" style="flex: 1 0 50%; text-align: center; padding-bottom: 5px;">
+                    <b>Уточняйте цену у продавца</b>
+                </div>
+            {% endif %}
+        {% include 'shop/cart__btn.html' %}
+    </div>
+</div>

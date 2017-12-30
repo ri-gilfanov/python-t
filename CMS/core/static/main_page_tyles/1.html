@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8"/>
+
+<style>
+/*MORPH*/
+.morph img {
+    width: 320px;
+}
+
+.morph img {
+  border-radius: 0%;
+  transition: border-radius 0.3s;
+}
+ 
+.morph:hover img {
+  border-radius: 50%;
+  transition: border-radius 0.3s;
+}
+.morph img {
+  transition: transform 1s;
+}
+ 
+.morph:hover img {
+  transform: rotate(360deg);
+  transition: transform 1s;
+}
+</style>
+</head>
+<body>
+    <a style="width: auto;" class="morph pic">
+      <img src="water_main.png" alt="beach">
+    </a><a>1</a>
+    <a style="width: auto;" class="morph pic">
+      <img src="water_main.png" alt="beach">
+    </a>
+</body>

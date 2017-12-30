@@ -1,0 +1,155 @@
+{% extends 'core/base.html' %}
+{% load core mptt_tags shop static %}
+
+
+{% block page_title %}{{ product.name }}{% endblock %}
+
+    
+{% block additional_static %}
+    <meta name="description" content="Купить {{ product.name }} в Тюмени" />
+    <link rel="stylesheet" type="text/css" href="{% static 'shop__styles.css' %}"/>
+    <script type="text/javascript" src="{% static 'shop__cart.js' %}"></script>
+    <script type="text/javascript" src="{% static 'jquery.idTabs.min.js' %}"></script>
+{% endblock %}
+
+
+{% block content_block %}
+
+ 
+<div class="page_header__wrapper">
+    <header class="page_header__wrapper">
+        <p class="bread_crumbs">
+            <a href="{% url 'main_page' %}">Главная</a><span> / </span>
+            <a href="{% url 'catalog' %}">Каталог</a><span> / </span>
+            {% for category in category_bread_crumbs %}
+                <a href="{% url 'category' category.pk %}">{{ category.name }}</a><span> / </span>
+            {% endfor %}
+        </p>
+        <h1 class="page_header__h1">{{ product.name }}</h1>
+    </header>
+</div>
+
+
+<div class="product__content">
+
+    <style>
+        .product_photos__photos,
+        .product_tab__ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+        }
+        .product_photos__photos li,
+        .product_tab__ul li {
+            flex: 1 0 auto;
+            text-align: center;
+        }
+    </style>
+
+    <div id="product_photos__wrapper" style="flex: 0 0 300px;" class="product_photos__wrapper usual">
+        {% for photo in product.photo_set.all %}
+            <div class="product_photos__selected" id="photo{{ forloop.counter }}">
+                <a href="{{ photo.file.url }}" target="_blank" style="display: block; width: 100%;">
+                    <center><img src="{{ photo.file.url }}" alt="{{ product.name }}"></center>
+                </a>
+            </div>
+        {% empty %}
+            <div class="product_photos__selected" id="photo{{ forloop.counter }}">
+                <center><img style="max-height: 240px;" src="{% static 'shop__product_default.png' %}" alt="{{ product.name }}"></center>
+            </div>
+        {% endfor %}
+        <ul class="product_photos__photos">
+            {% for photo in product.photo_set.all %}
+                <li>
+                    <a href="#photo{{ forloop.counter }}" class="btn btn__paginator btn__light {% if forloop.counter == 1 %}selected{% endif %}">
+                        <img src="{{ photo.file.url }}" alt="{{ product.name }}">
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <script type="text/javascript"> 
+        $("#product_photos__wrapper ul").idTabs(); 
+    </script>
+
+    <div id="product_tab__wrapper" style="flex: 1 0 300px;" class="usual">
+        <ul class="product_tab__ul">
+            <li><a class="btn btn__light selected" style="width: 100%;" href="#tab1">Характеристики товара</a></li>
+            <li><a class="btn btn__light" style="width: 100%;" href="#tab2">Описание товара</a></li>
+            <li><a class="btn btn__light" style="width: 100%;" href="#tab3">Наличие в магазинах</a></li>
+        </ul>
+        <div id="tab1" style="padding: 0px 10px;">
+            <h2>Характеристики товара</h2>
+            {% if product.brand %}
+                <p><b>Бренд:</b> {{ product.brand }}</p>
+            {% endif %}
+            {% for attribute in product.variantattribute_set.all %}
+                {% with attribute.values.all as attribute_values %}
+                    {% if attribute_values %}
+                        {% if attribute_values|length > 1 %}
+                            <p><b>{{ attribute }}:</b></p>
+                            <ul>
+                                {% for value in attribute_values %}
+                                    <li>{{ value }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p><b>{{ attribute }}:</b> {{ attribute_values.first }}</p>
+                        {% endif %}
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+            {% for attribute in product.decimalattribute_set.all %}
+                <p>
+                    <b>{{ attribute }}:</b>
+                    {{ attribute.value }}
+                    {{ attribute.filter.unit }}
+                </p>
+            {% endfor %}
+            {% for attribute in product.rangeattribute_set.all %}
+                <p>
+                    <b>{{ attribute }}:</b>
+                    от {{ attribute.values.lower|floatformat }} до {{ attribute.values.upper|floatformat }}
+                    {{ attribute.filter.unit }}
+                </p>
+            {% endfor %}
+        </div>
+        <div id="tab2" style="padding: 0px 10px;">
+            <h2>Описание товара</h2>
+            {% if product.description %}
+                {{ product.description|safe }}
+            {% endif %}
+        </div>
+        <div id="tab3" style="padding: 0px 10px;">
+            <h2>Наличие в магазинах</h2>
+            {% for quantity in product.quantity_set.all %}
+                <p>{{ quantity.store }}:<br/>{% if quantity.value %}есть в наличии{% else %}уточняйте наличие{% endif %}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <script type="text/javascript"> 
+        $("#product_tab__wrapper ul").idTabs(); 
+    </script>
+
+
+    <div class="product__sidebar" style="flex: 0 0 300px;">
+        <p class="light_blue" style="font-size: 1.5em;">
+            {% russian_price product as x %}
+            {% if x %}
+                <div class="light_blue" style="flex: 1 0 50%; font-size: 1.5em; padding: 5px;">
+                    <b>{{ x }} </b><span class="fa fa-rub"></span>
+                </div>
+            {% else %}
+                <div class="light_blue" style="flex: 1 0 50%; text-align: center; padding-bottom: 5px;">
+                    <b>Уточняйте цену у продавца</b>
+                </div>
+            {% endif %}
+            {% include 'shop/cart__btn.html' %}
+        </p>
+        <p><b>Код товара:</b> {{ product.vendor_code }}</p>
+    </div>
+</div>
+
+{% endblock %}

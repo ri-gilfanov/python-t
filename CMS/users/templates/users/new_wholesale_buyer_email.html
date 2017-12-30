@@ -1,0 +1,16 @@
+{% extends "mail_templated/base.tpl" %}
+{% load mathfilters %}
+
+{% block subject %}
+    Заявка оптового покупателя: {{ buyer.first_name }}, {{ buyer.phone }}.
+{% endblock %}
+
+{% block body %}
+    {#{{ buyer.first_name }}, this is a plain text message.#}
+{% endblock %}
+
+{% block html %}
+    <p>Пользователь {{ buyer.get_full_name }} подал заявку оптового покупателя.</p>
+    <p>Контактный телефон пользователя: {{ buyer.phone }}</p>
+    <p><a href="http://piton-t.ru/{% url 'admin:users_user_change' buyer.pk %}">Изменить пользователя</a></p>
+{% endblock %}

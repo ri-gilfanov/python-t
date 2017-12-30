@@ -1,0 +1,140 @@
+.li_inline {
+    display: inline-block;
+}
+.white_box {
+    background-color: rgb(255,255,255);
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+
+.ul__column {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.btn::-moz-focus-inner {
+    border: 0px;
+    padding: 0px;
+}
+
+.btn {
+    border: none;
+    display: inline-block;
+    font-family: "Open Sans";
+    font-size: inherit;
+    outline: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.btn__dark,
+.btn__dark:focus,
+.btn__dark:link,
+.btn__dark:visited {
+    background-color: rgb(4,80,158);
+    color: rgb(255,255,255);
+    transition: 0.3s;
+}
+.btn__dark:active,
+.btn__dark:hover {
+    color: rgba(255,255,255,1.0);
+    background-color: rgb(28,148,216);
+    transition: 0.3s;
+}
+
+.form__sumbit_button {padding: 10px; letter-spacing: 2px; min-width: 12.5em;}
+
+.btn__light,
+.btn__light:focus,
+.btn__light:link,
+.btn__light:visited {
+    background-color: rgb(255,255,255);
+    color: rgb(0,0,0);
+    transition: 0.3s;
+}
+.btn__light:active,
+.btn__light:hover {
+    color: #fff;
+    background-color: rgb(28,148,216);
+    transition: 0.3s;
+}
+
+
+.btn__dark_sel,
+.btn__dark_sel:focus,
+.btn__dark_sel:link,
+.btn__dark_sel:visited,
+.btn__light_sel,
+.btn__light_sel:focus,
+.btn__light_sel:link,
+.btn__light_sel:visited,
+.btn__dark.selected,
+.btn__dark.selected:focus,
+.btn__dark.selected:link,
+.btn__dark.selected:visited,
+.btn__light.selected,
+.btn__light.selected:focus,
+.btn__light.selected:link,
+.btn__light.selected:visited {
+    color: rgba(255,255,255,1.0);
+    background-color: rgb(28,148,216);
+    transition: 0.3s;
+}
+
+.btn__std {
+    margin: 5px;
+    border-radius: 2px;
+}
+
+.btn__std,
+.btn__paginator {
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+    transition: 0.0s;
+}
+
+.btn__std:active,
+.btn__paginator:active {
+    box-shadow: -1px -1px 1px rgba(0,0,0,0.5);
+    transition: 0.0s;
+}
+
+
+.paginator__wrapper__top,
+.paginator__wrapper__bottom {
+    flex: 0 0 100%;
+}
+
+
+.paginator__wrapper__top > .btn {
+    margin: 0px 10px 10px 0px;
+}
+
+
+.paginator__wrapper__bottom > .btn {
+    margin: 10px 10px 0px 0px;
+}
+
+
+
+.social_icon {
+    padding: 2px;
+    transition: 0.3s;
+}
+
+.social_icon:active,
+.social_icon:focus,
+.social_icon:hover {
+    padding: 0px;
+    transition: 0.3s;
+}
+
+
+.dark_blue {
+    color: rgb(4,80,158);
+}
+
+.light_blue {
+    color: rgb(28,148,216);
+}
+

@@ -1,0 +1,73 @@
+{% extends 'core/base__with_sidebar.html' %}
+{% load static mptt_tags %}
+
+{% block page_title %}{{ category.name }} / {% for category in category_bread_crumbs|dictsortreversed:'level' %}{{ category.name }} / {% endfor %}Каталог товаров{% endblock %}
+
+    
+{% block additional_static %}
+    <meta name="description" content="Купить {{ category.name }} в Тюмени" />
+    <link rel="stylesheet" type="text/css" href="{% static 'shop__styles.css' %}"/>
+    <script type="text/javascript" src="{% static 'shop__cart.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'JRange/jquery.range.css' %}">
+    <script type="text/javascript" src="{% static 'JRange/jquery.range-min.js' %}"></script>
+{% endblock %}
+
+
+{% block bread_crumbs %}
+    <a href="{% url 'main_page' %}">Главная</a>
+    <span> / </span>
+    <a href="{% url 'catalog' %}">Каталог</a>
+    <span> / </span>
+    {% for category in category_bread_crumbs %}
+        <a href="{% url 'category' category.pk %}">{{ category.name }}</a>
+        <span> / </span>
+    {% endfor %}
+{% endblock %}
+
+
+{% block page_header %}
+    <span>{{ category.name }}</span>
+{% endblock %}
+
+
+
+{% block core__sidebar_wrapper %}
+    <style>
+        #id_brand {
+            padding: 0px;
+            margin: 0px;
+            list-style: none;
+        }
+        .product_filter label {
+            display: block;
+        }
+    </style>
+    {% include 'shop/category_products__filter.html' %}
+    {% if relations %}
+        <section class="shop__sidebar_block white_box">
+            <h1 class="category_sidebar__h1">Смотрите так же</h1>
+            <ul class="ul__column">
+                {% for category in relations %}
+                    <li class="category_sidebar__li">
+                        <a class="btn btn__light" href="{% url 'category' category.pk %}">{{ category.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+{% endblock %}
+
+
+{% block core__main %}
+    <div class="paginator__wrapper__top">
+        {% include 'shop/category_products__pagination.html' %}
+    </div>
+    <div class="tyle__wrapper">
+        {% for product in paginator_page %}
+            {% include 'shop/category_products__product_tyle.html' %}
+        {% endfor %}
+    </div>
+    <div class="paginator__wrapper__bottom">
+        {% include 'shop/category_products__pagination.html' %}
+    </div>
+{% endblock %}

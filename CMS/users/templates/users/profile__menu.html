@@ -1,0 +1,18 @@
+<section class="shop__sidebar_block white_box">
+    <ul class="ul__column">
+        <li class="category_sidebar__li">
+            <a class="btn btn__light" href="{% url 'profile_editing' %}">Изменить профиль</a>
+        </li>
+        <li class="category_sidebar__li">
+            <a class="btn btn__light" href="{% url 'legal_entities' %}">Юридические лица</a>
+        </li>
+        <li class="category_sidebar__li">
+            <a class="btn btn__light" href="{% url 'buyer_receipts' %}">Мои заказы</a>
+        </li>
+        {% if request.user.is_seller == True %}
+            <li class="category_sidebar__li">
+                <a class="btn btn__light" href="{% url 'seller_orders' %}">Заказы клиентов</a>
+            </li>
+        {% endif %}
+    </ul>
+</section>

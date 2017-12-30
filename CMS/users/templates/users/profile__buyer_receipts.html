@@ -1,0 +1,56 @@
+{% extends 'core/base__with_sidebar.html' %}
+{% load static mptt_tags mathfilters %}
+
+
+{% block page_title %}Мои заказы / Личный кабинет{% endblock %}
+
+    
+{% block additional_static %}
+{% endblock %}
+
+
+{% block bread_crumbs %}
+    <a href="{% url 'main_page' %}">Главная</a>
+    <span> / </span>
+    <a href="{% url 'profile' %}">Личный кабинет</a>
+    <span> / </span>
+{% endblock %}
+
+
+{% block page_header %}
+    <span>Мои заказы</span>
+{% endblock %}
+
+
+
+{% block core__sidebar_wrapper %}
+    {% include 'users/profile__menu.html' %}
+{% endblock %}
+
+
+{% block core__main %}
+    <div class="white_box" style="flex: 1 1 100%;">
+        <table style="margin: 0px auto;">
+            <tr>
+                <th>Заказ</th>
+                <th>Наименований</th>
+                <th>Сумма</th>
+                <th>Оплачено</th>
+            </tr>
+            {% for receipt in receipts %}
+            <tr>
+                <td><a href="{% url 'buyer_receipt' receipt.pk %}">Заказ №{{ receipt.pk }}</a></td>
+                <td style="text-align: right;">{{ receipt.order_set.count }}</td>
+                <td style="text-align: right;">{{ receipt.total_price }}</td>
+                <td style="text-align: right;">
+                    {% if receipt.paid_amount > 0 %}
+                        {{ receipt.get_paid_amount|div:receipt.total_price|mul:100|floatformat:2 }}%
+                    {% else %}
+                        0%
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

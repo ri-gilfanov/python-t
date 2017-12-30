@@ -1,0 +1,57 @@
+{% extends 'core/base__with_sidebar.html' %}
+{% load core static mptt_tags %}
+
+
+{% block page_title %}{{ category.name }} / Каталог{% endblock %}
+
+    
+{% block additional_static %}
+{% endblock %}
+
+
+{% block bread_crumbs %}
+    <a href="{% url 'main_page' %}">Главная</a>
+    <span> / </span>
+{% endblock %}
+
+
+{% block page_header %}
+    <span>Личный кабинет</span>
+{% endblock %}
+
+
+
+{% block core__sidebar_wrapper %}
+    {% include 'users/profile__menu.html' %}
+{% endblock %}
+
+
+{% block core__main %}
+    <div class="white_box" style="flex: 1 1 100%;">
+        <style>.personal_data th {text-align: left}</style>
+        <table class="personal_data" style="margin: 0px auto;">
+            <tr>
+                <th>Полное имя:</th>
+                <td>{{ request.user.first_name }} {{ request.user.patronymic }} {{ request.user.last_name }}</td>
+            </tr>
+            <tr>
+                <th>Дата рождения:</th>
+                <td>{{ request.user.birth_date }}</td>
+            </tr>
+            <tr>
+                <th>Электронная почта:</th>
+                <td><a href="mailto:{{ request.user.email }}">{{ request.user.email }}</a></td>
+            </tr>
+            <tr>
+                <th>Дата регистрации:</th>
+                <td>{{ request.user.date_joined }}</td>
+            </tr>
+            <tr>
+                {% if request.user.seller %}
+                <th>Ваш продавец-консультант:</th>
+                <td>{{ request.user.seller.first_name }}, 8-{{ request.user.seller.phone|get_phone_format_string }}</td>
+                {% endif %}
+            </tr>
+        </table>
+    </div>
+{% endblock %}

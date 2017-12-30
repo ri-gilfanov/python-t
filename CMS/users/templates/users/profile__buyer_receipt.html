@@ -1,0 +1,68 @@
+{% extends 'core/base__with_sidebar.html' %}
+{% load static mptt_tags mathfilters %}
+
+
+{% block page_title %}Заказ №{{ receipt.pk }} / Мои заказы / Личный кабинет{% endblock %}
+
+    
+{% block additional_static %}
+{% endblock %}
+
+
+{% block bread_crumbs %}
+    <a href="{% url 'main_page' %}">Главная</a>
+    <span> / </span>
+    <a href="{% url 'profile' %}">Личный кабинет</a>
+    <span> / </span>
+    <a href="{% url 'buyer_receipts' %}">Мои заказы</a>
+{% endblock %}
+
+
+{% block page_header %}
+    <span>Мои заказы</span>
+{% endblock %}
+
+
+
+{% block core__sidebar_wrapper %}
+    {% include 'users/profile__menu.html' %}
+{% endblock %}
+
+
+{% block core__main %}
+    <div class="white_box" style="flex: 1 1 100%; padding: 5px;">
+    <p>Внимание! Счет действителен до {{ receipt.really_up_to }}. Оплата данного счета означает согласие с условиями поставки товара. Уведомление об оплате обязательно, в противном случае не гарантируется наличие товара на складе. Товар отпускается по факту прихода денег на р/с Поставщика, самовывозом, при наличии доверенности и паспорта.</p>
+    
+    <table cellpadding="2" style="width: 100%;">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Товар</th>
+                <th>Цена</th>
+                <th>Кол-во</th>
+                <th>Сумма</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+        {% for order in orders %}
+            <tr>
+                <td style="text-align: center;"><center>
+                    <a href="{% url 'product' order.product.pk %}">
+                        <img src="{{ order.product.photo_set.all.0.file.url }}" style="max-height: 4em;">
+                    </a>
+                </center></td>
+                <td><a href="{% url 'product' order.product.pk %}" target="_blank">{{ order.product }}</a></td>
+                {% for price in order.product.price_set.all %}
+                    {% if price.buyer_type == buyer.buyer_type %}
+                        <td style="text-align: right;">{{ price.value }}</td>
+                        <td style="text-align: right;">{{ order.quantity }}</td>
+                        <td style="text-align: right;">{{ price.value|mul:order.quantity }}</td>
+                    {% endif %}
+                {% endfor %}
+                <td style="text-align: right; white-space: nowrap;">{{ order.get_status_display }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <p><b>Всего наименований {{ orders.count }}, на сумму {{ receipt.total_price }} руб.</b></p>
+    </div>
+{% endblock %}

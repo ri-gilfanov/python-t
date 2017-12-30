@@ -1,0 +1,26 @@
+{% extends 'core/base__without_sidebar.html' %}
+{% load core static shop mptt_tags %}
+
+
+{% block page_title %}{{ obj.title }}{% endblock %}
+    
+{% block additional_static %}
+    <meta name="description" content="{{ obj.title }}" />
+{% endblock %}
+
+{% block bread_crumbs %}
+    <a href="{% url 'main_page' %}">Главная</a>
+    <span> / </span>
+{% endblock %}
+
+
+{% block page_header %}
+    <span>{{ obj.title }}</span>
+{% endblock %}
+
+
+{% block core__main %}
+    <div class="white_box" style="padding: 10px 10px;">
+    {{ obj.content|safe }}
+    </div>
+{% endblock %}

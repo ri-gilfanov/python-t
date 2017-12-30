@@ -1,0 +1,42 @@
+{% load admin_urls static %}
+{% spaceless %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="yandex-verification" content="e304c264b61eac12" />
+    <meta name="google-site-verification" content="XOwXR4WIXCNSpeoSyJQyPb28xg9H2nASQBlWr3PCHCQ" />
+{% endspaceless %}
+    <meta name="author" content="Ruslan Ilyasovich Gilfanov (https://vk.com/ri_gilfanov)"/>
+{% spaceless %}
+    <script type="text/javascript" src="{% static '/js/jquery-3.1.1.min.js' %}"></script>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static '/core__carcass.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static '/core__default.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static '/core__mixins.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}"/>
+    {% block additional_static %}{% endblock %}
+    <title>{% block page_title %}{% endblock %} // {{ site_name }} — {{ site_description }}</title>
+</head>
+<body>
+
+    {% include 'core/base__nav_secondary.html' %}
+
+    {% include 'core/base__header.html' %}
+
+    {% include 'core/base__nav_primary.html' %}
+
+    {% include 'core/base__messages.html' %}
+
+
+{# CONTENT #}
+<main class="content_wrapper">
+    {% block content_block %}{% endblock %}
+</main>
+
+
+    {% include 'core/base__footer.html' %}
+
+</body>
+</html>
+{% endspaceless %}

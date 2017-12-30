@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+
+{% block page_title %}{% endblock %}
+
+{% block additional_static %}{% endblock %}
+
+{% block content_block %}
+    <div class="page_header__wrapper">
+        <p class="bread_crumbs">
+            {% block bread_crumbs %}{% endblock %}
+        </p>
+        <h1 class="page_header__h1">
+            {% block page_header %}{% endblock %}
+        </h1>
+    </div>
+
+    <div class="main__wrapper">
+        {% block core__main %}{% endblock %}
+    </div>
+{% endblock %}

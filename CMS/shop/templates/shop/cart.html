@@ -1,0 +1,113 @@
+{% extends 'core/base.html' %}
+{% load core mptt_tags shop static %}
+
+
+{% block page_title %}{{ category.name }} / Каталог{% endblock %}
+
+    
+{% block additional_static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'shop__styles.css' %}"/>
+    <script type="text/javascript" src="{% static 'shop__cart.js' %}"></script>
+{% endblock %}
+
+{% block content_block %}
+
+<div class="page_header__wrapper">
+    <p class="bread_crumbs">
+        <a href="{% url 'main_page' %}">Главная</a><span> / </span>
+        <a href="{% url 'catalog' %}">Каталог</a><span> / </span>
+    </p>
+    <h1 class="page_header__h1">Корзина покупателя</h1>
+</div>
+
+
+
+<section style="flex: 0 0 100%; margin-bottom: 20px;" class="white_box">
+    {% if product_list %}
+        <form method="POST" action="{% url 'cart' %}">
+            {% csrf_token %}
+        <table id="cart_table" style="margin: 10px auto;">
+            <thead>
+                <th></th>
+                <th>Товар</th>
+                <th>Цена</th>
+                <th>Количество</th>
+                <th>Состояние</th>
+            </thead>
+            {% for product in product_list %}
+                <tr id="cart__table_tr_{{ product.pk }}">
+                    <td>
+                        {% if product.photo_set.all.first %}
+                            <center>
+                                <img style="max-height: 50px;" src="{{ product.photo_set.all.first.file.url }}">
+                            </center>
+                        {% else %}
+                            <center>
+                                <img style="max-height: 50px;" src="{% static 'shop__product_default.png' %}" alt="{{ product.name }}">
+                            </center>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <input name="pk" value="{{ product.pk }}" type="hidden"/>
+                        <a href="{% url 'product' product.pk %}" target="_blank">{{ product.name }}</a>
+                    </td>
+                    <td><span class="light_blue">{% russian_price product %}</span></td>
+                    {% with product.pk|stringformat:"i" as pk %}
+                    {% with request.session.cart|get_session_dict_value:pk|default:0 as product_quantity %}
+                    <td style="display: flex; align-items: center;">
+                        <input id="cart__quantity_{{ pk }}" min="0" name="product_{{ pk }}_quantity" onchange="cart__change_quantity(this);" onkeyup="this.onchange(this);" onpaste="this.onchange(this);" oninput="this.onchange(this);" type="number" value="{{ product_quantity }}"/>
+                        <div style="display: flex; flex-direction: column;">
+                            <a  onclick="cart__inc_quantity(this)" id="cart__quantity_inc_btn_{{ pk }}" style="" class="btn btn__product_quantity btn__std btn__dark">
+                                <span class="fa fa-plus"></span>
+                            </a>
+                            <a  onclick="cart__dec_quantity(this)" id="cart__quantity_dec_btn_{{ pk }}" class="btn btn__product_quantity btn__std btn__dark">
+                                <span class="fa fa-minus"></span>
+                            </a>
+                        </div>
+                    </td>
+                    {% endwith %}
+                    {% endwith %}
+                    <td>
+                        {% include 'shop/cart__btn.html' %}
+                    </td>
+                </tr>
+            {% endfor %}
+            {% if request.user.buyer_type %}
+                <tr>
+                    <td colspan="5" style="text-align: left;">
+                        <label><b>Заказ на юридическое лицо</b></label>
+                        <select name="legal_entity">
+                            <option value="" select>Нет</option>
+                            {% for legal_entity in request.user.legalentity_set.all %}
+                                <option value="{{ legal_entity.pk }}">{{ legal_entity }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="text-align: left;">
+                        <label><b>Адрес доставки</b></label>
+                        <textarea name="delivery" maxlength="256" type="text" style="width: 100%;">{{ request.user.default_delivery }}</textarea>
+                    </td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td colspan="5" style="text-align: center;">
+                    <button class="btn btn__std btn__dark form__sumbit_button" name="method" value="clear_cart" type="submit">
+                        <span>очистить корзину</span>
+                    </button>
+                    {% if request.user.buyer_type %}
+                        <button class="btn btn__std btn__dark form__sumbit_button" name="method" value="make_an_order" type="submit">
+                            <span>оформить заказ</span>
+                        </button>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+        </form>
+    {% else %}
+        <p style="text-align: center;">Корзина покупателя пока пуста</p>
+    {% endif %}
+</section>
+
+{% endblock %}

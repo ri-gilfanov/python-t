@@ -1,0 +1,47 @@
+{% extends 'core/base__with_sidebar.html' %}
+{% load static mptt_tags %}
+
+
+{% block page_title %}Изменить профиль / Личный кабинет{% endblock %}
+
+    
+{% block additional_static %}
+{% endblock %}
+
+
+{% block bread_crumbs %}
+    <a href="{% url 'main_page' %}">Главная</a>
+    <span> / </span>
+    <a href="{% url 'profile' %}">Личный кабинет</a>
+    <span> / </span>
+{% endblock %}
+
+
+{% block page_header %}
+    <span>Изменить профиль</span>
+{% endblock %}
+
+
+
+{% block core__sidebar_wrapper %}
+    {% include 'users/profile__menu.html' %}
+{% endblock %}
+
+
+{% block core__main %}
+    <div class="white_box" style="flex: 1 1 100%; padding: 10px 0px;">
+        <form action="{% url 'profile_editing' %}" method="POST">
+            {% csrf_token %}
+            <style>.personal_data th {text-align: left}</style>
+            <style>.personal_data input {width: 100%;}</style>
+            <table class="personal_data" style="margin: 0px auto; min-width: 280px;">
+                {{ form.as_table }}
+                <tr>
+                    <td colspan=2 style="text-align: center;">
+                        <button type="submit" class="btn btn__dark form__sumbit_button">Сохранить изменения</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+{% endblock %}

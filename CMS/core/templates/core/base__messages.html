@@ -1,0 +1,59 @@
+{% load static %}
+<style>
+    .messages__ul {
+        margin: 0px 0px 0px 0px;
+        background-color: #fff;
+        list-style: none;
+        padding: 0px;
+        box-shadow: 1px 1px 4px rgba(0,0,0,0.25);
+    }
+    .test_mode {
+        display: flex;
+        background: rgb(28,148,216);
+        padding: 5px;
+        color: #fff;
+        align-items: center;
+    }
+    .test_mode p {
+        margin: 0;
+    }
+    .test_mode a,
+    .test_mode a:link,
+    .test_mode a:visited {
+        color: rgb(239,239,239);
+        outline: none;
+        text-decoration: none;
+            transition: 0.3s;
+    }
+    .test_mode a:active,
+    .test_mode a:focus,
+    .test_mode a:hover {
+        color: rgb(250,250,250);
+        transition: 0.3s;
+    }
+</style>
+
+
+<aside class="messages__wrapper">
+    <div class="messages__block">
+        {# if messages #}
+            <ul class="messages__ul">
+            {% comment %}
+                {% for message in messages %}
+                    <li class="messages__li{% if message.tags %} {{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            {% endcomment %}
+                <li class="test_mode">
+                    <div class="fa fa-exclamation-triangle" style="color: #ff4; padding-right: 5px;"></div>
+                    <div>
+                        <p><strong>Разработка веб-приложения прекращена в июле 2017 года по  организационным и финансовым причинам.</strong></p>
+                        <p><strong>Цены и наличие товаров уточняйте в магазинах компании или по телефону: (3452) 75-53-99</strong></p>
+                        <p><strong>Новый сайт в разработке, его запуск ожидается по привычному адресу: <a href="http://piton-t.ru/" target="_blank">http://piton-t.ru/</a></strong></p>
+                    </div>
+                </li>
+            </ul>
+        {# endif #}
+    </div>
+</aside>

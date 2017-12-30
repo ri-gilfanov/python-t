@@ -1,0 +1,60 @@
+{% load static %}
+
+
+<header class="site_header__wrapper">
+    <div class="site_header__block">
+
+        <h1 class="site_header__logo">
+            <a href="{% url 'main_page' %}">
+                <img class="site_header__logo__img" src="{% static 'core__logo.png' %}" alt="{{ site_name }} — {{ site_description }}">
+            </a>
+        </h1>
+
+        <div class="site_header__addresses">
+            <div>
+                <span class="fa fa-map-marker light_blue" style="width: 1em; text-align: center; padding-right: 20px;"></span>
+            </div>
+            <div>
+                <p style="display: flex; align-items: center; margin: 0.25em 0em;">
+                    г. Тюмень, ул. Демьяна Бедного, 96, стр.6, корп.2
+                </p>
+                <p style="display: flex; align-items: center; margin: 0.25em 0em;">
+                    г. Тюмень, ул. 2-я Луговая, д.35
+                </p>
+            </div>
+        </div>
+
+        <div class="site_header__phone">
+
+            <p style="display: flex; align-items: center; margin: 0.25em 0em;">
+                <span class="fa fa-mobile-phone light_blue" style="width: 1em; text-align: center;"></span>
+                <span>&nbsp;&nbsp;(3452)&nbsp;75-53-99</span>
+            </p>
+            <p style="display: flex; align-items: center; margin: 0.25em 0em;">
+                <span class="fa fa-envelope-o light_blue" style="width: 1em; text-align: center;"></span>
+                <span>&nbsp;&nbsp;<a href="mailto:piton-t@inbox.ru">piton-t@inbox.ru</a></span>
+            </p>
+        </div>
+
+		<section class="site_header__social_icons">
+            <ul class="site_header__ul">
+                <li class="site_header__li__social_icons">
+                    <a href="https://vk.com/ooopkfpiton">
+                        <img class="social_icon" style="width: 30px;" src="{% static 'social_icons/vk.png' %}">
+                    </a>
+                </li>
+                <li class="site_header__li__social_icons">
+                    <a href="">
+                        <img class="social_icon" style="width: 30px;" src="{% static 'social_icons/instagram.png' %}">
+                    </a>
+                </li>
+                <li class="site_header__li__social_icons">
+                    <a href="">
+                        <img class="social_icon" style="width: 30px;" src="{% static 'social_icons/youtube.png' %}">
+                    </a>
+                </li>
+            </ul>
+		</section>
+
+    </div>
+</header>

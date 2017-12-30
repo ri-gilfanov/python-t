@@ -1,0 +1,107 @@
+.btn__set_product {
+    min-width: 6.75em;
+}
+
+
+
+
+
+.tyle__wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-gap: 10px;
+}
+
+
+.shop__tyle__block {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 5px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    /* удалить после выхода Яндекс.Браузер 17.4 или 17.5 */
+   .tyle__wrapper {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .shop__tyle__block {
+        flex: 0 1 280px;
+        margin: 0 10px 10px 0;
+    }
+}
+
+    .category_tyle__category_h1 {
+        margin: 0px;
+        font-size: 1.5em;
+    }
+    .category_tyle__product_h1 {
+        margin: 5px 0px 0px;
+        font-size: 1.0em;
+        text-align: center;
+    }
+    .category_tyle__category_a {
+        display: block;
+        position: relative;
+        padding: 5px;
+        text-align: center;
+    }
+
+    .category_tyle__category_a img {
+        margin: 0px auto;
+        max-height: 192px;
+    }
+    .category_tyle__category_a img {
+        opacity: 1;
+        transition: 0.3s;
+    }
+    .category_tyle__category_a:hover img {
+        opacity: 0.75;
+        transition: 0.3s;
+    }
+    .category_tyle__subcategory_a {
+        width: 100%;
+    }
+
+
+
+
+    .product__header {
+        flex: 1 1 100%;
+    }
+    .product__content {
+        background-color: rgb(255,255,255);
+        display: flex;
+        flex: 1 1 calc(100% - 320px);
+        border-radius: 0px;
+        box-shadow: 2px 2px 2px rgba(0,0,0,0.25);
+        margin-bottom: 20px;
+    }
+    .product__sidebar {
+        background-color: rgb(255,255,255);
+        border-left: 1px rgba(128,128,128,0.75) solid;
+        padding-left: 10px;
+        flex: 0 0 auto;
+        width: 320px;
+    }
+    .product_photos {
+        flex: 0 0 400px;
+    }
+    .product_photos img {
+        margin: 0 auto;
+    }
+    .product_photos__selected {
+        padding: 10px;
+    }
+    .product_photos__selected img {
+        max-height: 400px;
+    }
+    .product_photos__photos {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .product_photos__photos img {
+        max-width: 50px;
+        max-height: 50px;
+        flex: 0 0 auto;
+    }

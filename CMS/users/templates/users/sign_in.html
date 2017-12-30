@@ -1,0 +1,49 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+
+{% block page_title %}Вход на сайт в качестве авторизованного пользователя{% endblock %}
+
+    
+{% block additional_static %}
+    <script type="text/javascript" src="{% static '/js/jquery.maskedinput.min.js' %}"></script>
+{% endblock %}
+
+
+{% block content_block %}
+    <div class="page_header__wrapper">
+        <div class="page_header__wrapper">
+            <p class="bread_crumbs">
+                <a href="{% url 'main_page' %}">Главная</a><span> / </span>
+            </p>
+            <h1 class="page_header__h1">Вход на сайт</h1>
+        </div>
+    </div>
+
+    <div class="white_box" style="display: flex; flex: 0 0 auto; padding: 0px 10px; margin-bottom: 20px;">
+        {% for message in messages %}
+            <div {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message|safe }}</div>
+        {% endfor %}
+        <style>
+            .sign_form {
+                flex: 0 0 auto;
+                display: flex;
+                flex-wrap: wrap;
+                max-width: 300px;
+            }
+            .sign_form > input[type="submit"] {
+                margin-bottom: 10px;
+            }
+            .sign_form > label,
+            .sign_form > input {
+                flex: 0 0 100%;
+                margin-top: 10px;
+            }
+        </style>
+        <form class="sign_form" action="{% url 'sign_in'%}" method="POST">
+            {% csrf_token %}
+            {{ auth_form }}
+            <input class="btn btn__dark" type="submit" value="войти">
+        </form>
+    </div>
+{% endblock %}

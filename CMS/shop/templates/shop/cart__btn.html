@@ -1,0 +1,13 @@
+{% load core mptt_tags shop static %}
+
+{% with product.pk|stringformat:"i" as pk %}
+{% with request.session.cart|get_session_dict_value:pk|default:0 as quantity %}
+    {% if quantity < 1 %}
+        <a id="cart__btn_{{ pk }}" class="btn btn__set_product btn__std btn__dark" onclick="cart__set_product(this)">
+            <span class="fa fa-cart-plus"></span><span>&nbsp;добавить</span></a>
+    {% else %}
+        <a id="cart__btn_{{ pk }}" class="btn btn__set_product btn__std btn__dark_sel btn__dark" onclick="cart__unset_product(this)">
+            <span class="fa fa-cart-arrow-down"></span><span>&nbsp;удалить</span></a>
+    {% endif %}
+{% endwith %}
+{% endwith %}

@@ -1,0 +1,46 @@
+{% load static %}
+
+<div class="site_nav_secondary__wrapper">
+    <nav class="site_nav_secondary__block">
+        <section class="site_nav_secondary__section__wide" style="max-width: 300px; margin: 0px 10px;">
+            <ul class="site_nav_secondary__ul">
+                <li class="site_nav_secondary__li">
+                    <span class="fa fa-map-marker light_blue"></span>
+                    <span>&nbsp;город:</span>
+                    <a href="{% url 'main_page' %}">
+                        <span>Тюмень</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+        <section class="site_nav_secondary__section__wide">
+            <ul class="site_nav_secondary__ul">
+                <li class="site_nav_secondary__li">
+                    <a href="{% url 'main_page' %}">Главная</a>
+                </li>
+                <li class="site_nav_secondary__li">
+                    <a href="{% url 'catalog' %}">Каталог</a>
+                </li>
+                <li class="site_nav_secondary__li">
+                    <a href="{% url 'custom_page' 1 %}">О компании</a>
+                </li>
+                <li class="site_nav_secondary__li">
+                    <a href="{% url 'custom_page' 2 %}">Контакты</a>
+                </li>
+            </ul>
+        </section>
+        <section class="site_nav_secondary__section">
+            <p style="margin: 0.5em 0em; text-align: right;"><span class="fa fa-user light_blue">&nbsp;</span>
+                {% if not user.is_authenticated %}
+                    <span><a href="{% url 'sign_in' %}">Войти</a></span>
+                    <span>| <a href="{% url 'sign_up' %}">Регистрация</a></li></span>
+                {% else %}
+                    {% if user.is_staff %}
+                        <span>&nbsp;<a href="{% url 'admin:index' %}">Управление</a> |</span>
+                    {% endif %}
+                    <span>&nbsp;<a href="{% url 'sign_out' %}">Выйти</a></span>
+                {% endif %}
+            </p>
+        </section>
+    </nav>
+</div>
